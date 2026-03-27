@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Radio Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .player-box {
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      width: 250px;
+      margin: auto;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff4c4c;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background: #ff1f1f;
+    }
+
+    /* Hide iframe (real player) */
+    .hidden-player {
+      width: 0;
+      height: 0;
+      border: none;
+      position: absolute;
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="player-box">
+    <h3>🎧 Comforter Radio</h3>
+
+    <button onclick="playRadio()">▶ Play</button>
+    <button onclick="stopRadio()">⏹ Stop</button>
+
+    <p id="status">🔴 Not Playing</p>
+  </div>
+
+  <!-- Hidden real player -->
+  <iframe 
+    id="radioFrame"
+    class="hidden-player"
+    src="https://embed.radio.co/player/abab912.html"
+    allow="autoplay">
+  </iframe>
+
+  <script>
+    const frame = document.getElementById("radioFrame");
+    const status = document.getElementById("status");
+
+    function playRadio() {
+      // Reload iframe to trigger autoplay
+      frame.src = frame.src;
+
+      status.innerText = "🟢 Playing";
+    }
+
+    function stopRadio() {
+      // Stop by clearing iframe
+      frame.src = "";
+      setTimeout(() => {
+        frame.src = "https://embed.radio.co/player/abab912.html";
+      }, 500);
+
+      status.innerText = "⏹ Stopped";
+    }
+  </script>
+
+</body>
+</html>
